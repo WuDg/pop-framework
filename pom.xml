@@ -8,7 +8,7 @@
     <artifactId>pop-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>pop-mybatis</module>
+        <module>pop-framework-mybatis</module>
     </modules>
     <packaging>pom</packaging>
 
