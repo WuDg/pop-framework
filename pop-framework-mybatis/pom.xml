@@ -11,8 +11,17 @@
 
     <artifactId>pop-framework-mybatis</artifactId>
 
-
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.10.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
         <!-- mybatis 核心依赖 -->
         <dependency>
             <groupId>org.mybatis</groupId>

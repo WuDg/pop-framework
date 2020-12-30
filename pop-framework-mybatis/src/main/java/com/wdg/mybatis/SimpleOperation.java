@@ -7,6 +7,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,9 @@ import java.io.InputStream;
  * @date: 2020/12/30 16:19
  */
 public class SimpleOperation {
+
+    private static final Logger logger = Logger.getLogger(SimpleOperation.class);
+
     public static void main(String[] args) throws IOException {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -28,8 +32,8 @@ public class SimpleOperation {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
             Blog blog = mapper.select(1);
             Blog query = mapper.query(1);
-            System.out.println(blog);
-            System.out.println(query);
+            logger.info(blog);
+            logger.info(query);
         }
     }
 }
