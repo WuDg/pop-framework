@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>pop-framework-mybatis</module>
+        <module>pop-framework-spring</module>
     </modules>
     <packaging>pom</packaging>
 

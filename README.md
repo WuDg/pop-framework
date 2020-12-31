@@ -32,4 +32,86 @@ public static void main(String[] args) throws IOException {
 
 #### 创建配置mybatis文件
 
+/resource/database.properties
+
+```properties
+driver = com.mysql.jdbc.Driver
+url = 
+username = root
+password = 5555
+```
+
 /resource/mybatis-config.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="database.properties"></properties>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!-- 使用相对于类路径的资源引用 -->
+        <!--<mapper resource="com/wdg/mybatis/mapper/BlogMapper.xml"/>-->
+        <!-- 将包内的映射器接口实现全部注册为映射器 -->
+        <!--<package name="com.wdg.mybatis.mapper"></package>-->
+        <!-- 使用映射器接口实现类的完全限定类名 -->
+        <!--<mapper class="com.wdg.mybatis.mapper.BlogMapper"></mapper>-->
+        <!-- 使用完全限定资源定位符（URL） -->
+        <mapper url="file:///F:/pop-framework-source/WuDG/pop-framework/pop-framework-mybatis/src/main/resources/com/wdg/mybatis/mapper/BlogMapper.xml"></mapper>
+    </mappers>
+</configuration>
+```
+
+#### 作用域和生命周期
+
+`SqlSessionFactoryBuilder` 建议最佳作用域是方法作用域
+
+`SqlSessionFactory` 全局唯一，运行期间一直存在
+
+`SqlSession` 线程唯一，没有HTTP请求就打开一个SqlSession
+
+#### 映射器实例
+
+```java
+BlogMapper mapper = session.getMapper(BlogMapper.class);
+Blog blog = mapper.select(1);
+```
+
+
+
+###  XML配置
+
+#### 属性
+
+* configuration（配置）          
+  * [properties（属性）](https://mybatis.org/mybatis-3/zh/configuration.html#properties)
+  * [settings（设置）](https://mybatis.org/mybatis-3/zh/configuration.html#settings)
+  * [typeAliases（类型别名）](https://mybatis.org/mybatis-3/zh/configuration.html#typeAliases)
+  * [typeHandlers（类型处理器）](https://mybatis.org/mybatis-3/zh/configuration.html#typeHandlers)
+  * [objectFactory（对象工厂）](https://mybatis.org/mybatis-3/zh/configuration.html#objectFactory)
+  * [plugins（插件）](https://mybatis.org/mybatis-3/zh/configuration.html#plugins)
+  * environments（环境配置）
+    * environment（环境变量）                  
+      * transactionManager（事务管理器）
+      * dataSource（数据源）
+  * [databaseIdProvider（数据库厂商标识）](https://mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider)
+  * [mappers（映射器）](https://mybatis.org/mybatis-3/zh/configuration.html#mappers)
+
+```xml
+<properties resource="database.properties">
+    <property name="username" value="root"/>
+    <property name="password" value="5555"/>
+</properties>
+```

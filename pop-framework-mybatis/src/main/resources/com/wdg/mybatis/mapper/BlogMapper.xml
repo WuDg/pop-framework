@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wdg.mybatis.mapper.BlogMapper">
-    <select id="select" resultType="com.wdg.mybatis.pojo.Blog">
+    <select id="select" resultType="blog">
     select * from tb_blog where id = #{id}
   </select>
 
-    <update id="update" parameterType="com.wdg.mybatis.pojo.Blog">
+    <update id="update" parameterType="blog">
         update tb_blog set name=#{name},value=#{value},author=#{author} where id=#{id}
     </update>
 </mapper>
