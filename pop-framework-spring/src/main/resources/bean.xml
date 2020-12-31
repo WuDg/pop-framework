@@ -1,12 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--构造方法注入-->
     <bean id="userBean" class="com.wdg.spring.bean.UserBean">
-        <property name="name" value="henry"></property>
+        <property name="name" value="构造方法注入"></property>
         <property name="age" value="18"></property>
     </bean>
+    <!--静态工厂方法注入-->
+    <bean id="userBean6"
+          class="com.wdg.spring.service.UserServiceFactor"
+          factory-method="userBean"></bean>
+
+    <!--实例方法注入-->
+    <bean id="userFactory" class="com.wdg.spring.service.UserServiceFactor"></bean>
+    <bean id="userBean7"
+          factory-bean="userFactory"
+          factory-method="userBean1"></bean>
+
+    <!--通过构造参数类型注入-->
+    <bean id="exampleBean" class="com.wdg.spring.bean.ExampleBean">
+        <constructor-arg type="int" value="7500000"/>
+        <constructor-arg type="java.lang.String" value="42"/>
+    </bean>
+
+
+    <!--通过构造参数索引下标注入-->
+    <bean id="exampleBean1" class="com.wdg.spring.bean.ExampleBean">
+        <constructor-arg index="0" value="7500000"/>
+        <constructor-arg index="1" value="42"/>
+    </bean>
+
+
+    <!--通过构造参数名称注入-->
+    <bean id="exampleBean2" class="com.wdg.spring.bean.ExampleBean">
+        <constructor-arg name="years" value="7500000"/>
+        <constructor-arg name="ultimateAnswer" value="42"/>
+    </bean>
+
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"
+          p:driverClassName="com.mysql.jdbc.Driver"
+          p:url="jdbc:mysql://localhost:3306/mydb"
+          p:username="root"
+          p:password="misterkaoli"></bean>
+
+
+    <bean id="mappings"
+          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+
+        <!-- typed as a java.util.Properties -->
+        <property name="properties">
+            <value>
+                jdbc.driver.className=com.mysql.jdbc.Driver
+                jdbc.url=jdbc:mysql://localhost:3306/mydb
+            </value>
+        </property>
+    </bean>
+
+
+    <beans>
+        <import resource="user.xml"></import>
+        <bean id="userBean1" class="com.wdg.spring.bean.UserBean">
+            <property name="name" value="henry"></property>
+            <property name="age" value="18"></property>
+        </bean>
+        <bean id="userBean2" class="com.wdg.spring.bean.UserBean">
+            <property name="name" value="henry"></property>
+            <property name="age" value="18"></property>
+        </bean>
+    </beans>
+
+
+
+    <beans>
+        <bean id="beanOne" class="com.wdg.spring.bean.ThingOne">
+            <!--构造注入-->
+            <!--<constructor-arg ref="beanTwo"/>-->
+            <!--<constructor-arg ref="beanThree"/>-->
+            <!--setter注入-->
+            <property name="thingTwo" ref="beanTwo"></property>
+            <property name="thingThree" ref="beanThree"></property>
+        </bean>
+
+        <bean id="beanTwo" class="com.wdg.spring.bean.ThingTwo"/>
+
+        <bean id="beanThree" class="com.wdg.spring.bean.ThingThree"/>
+    </beans>
+
+
 </beans>
 
